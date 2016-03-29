@@ -1,0 +1,13 @@
+## Interface: 60200
+## Title: |cff64b4ffFrom Scratch|r Cooldowns2
+## Notes: Raid cooldowns tracker
+## Author: Blash
+## SavedVariables: FSCooldowns2
+## Dependencies: FS_Core
+## OptionalDeps: FS_Cooldowns
+
+FS_Cooldowns2.lua
+spells.lua
+settings.lua
+index.lua
+group.lua
