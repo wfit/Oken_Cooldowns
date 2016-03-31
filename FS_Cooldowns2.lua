@@ -10,11 +10,72 @@ function Cooldowns2:OnInitialize()
 	self:InitializeIndex()
 	self:InitializePlayerTracking()
 
-	self:RebuildDisplayGroups()
+	self:RebuildEverything()
 end
 
 function Cooldowns2:OnEnable()
 end
 
 function Cooldowns2:OnDisable()
+end
+
+-------------------------------------------------------------------------------
+-- Helpers
+-------------------------------------------------------------------------------
+
+function Cooldowns2:RebuildGroup(name)
+	self.groups[name]:Rebuild()
+end
+
+function Cooldowns2:RebuildAllGroups()
+	for name, group in self:IterateGroups() do
+		group:Rebuild()
+	end
+end
+
+function Cooldowns2:RefreshDisplay(spell)
+	for name, group in self:IterateGroups() do
+		group:Refresh(spell)
+	end
+end
+
+function Cooldowns2:RefreshAllDisplays()
+	for name, group in self:IterateGroups() do
+		group:RefreshAll()
+	end
+end
+
+-------------------------------------------------------------------------------
+-- Players availablity
+-------------------------------------------------------------------------------
+
+local Roster = FS.Roster
+
+function Cooldowns2:InitializePlayerTracking()
+	self.player_available = {}
+
+	C_Timer.NewTicker(2, function()
+		local one_changed = false
+
+		for guid, available in pairs(self.player_available) do
+			local unit = Roster:GetUnit(guid)
+			if not unit or not UnitExists(unit) or UnitGUID(unit) ~= guid then
+				self.player_available[guid] = nil
+			else
+				local a = UnitIsVisible(unit) and not UnitIsDeadOrGhost(unit)
+				if a ~= available then
+					self.player_available[guid] = a
+					one_changed = true
+				end
+			end
+		end
+
+		if one_changed then
+			self:ScheduleIndexRefreshAll()
+		end
+	end)
+end
+
+function Cooldowns2:IsPlayerAvailabe(guid)
+	return self.player_available[guid] or false
 end

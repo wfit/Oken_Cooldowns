@@ -7,7 +7,10 @@
 ## OptionalDeps: FS_Cooldowns
 
 FS_Cooldowns2.lua
-spells.lua
-settings.lua
-index.lua
-group.lua
+Spells.lua
+Index.lua
+Settings.lua
+GroupSettings.lua
+Group.lua
+Display.lua
+Bar.lua

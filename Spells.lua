@@ -4,7 +4,7 @@ local _, Cooldowns2 = ...
 -- Build spells database
 -------------------------------------------------------------------------------
 
-Cooldowns2.class_colors = {
+local class_colors = {
 	["WARRIOR"]     = {0.78, 0.61, 0.43, "c79c6e"},
 	["PALADIN"]     = {0.96, 0.55, 0.73, "f58cba"},
 	["HUNTER"]      = {0.67, 0.83, 0.45, "abd473"},
@@ -19,27 +19,40 @@ Cooldowns2.class_colors = {
 	[""]            = {0.39, 0.70, 1.00, "64b4ff"},
 }
 
-local spells = {}
-local spells_class = {}
-local spells_info = {}
+function Cooldowns2:GetClassColor(class, as_hex)
+	local colors = class and class_colors[class] or class_colors[""]
+	if as_hex then
+		return colors[4]
+	else
+		return unpack(colors)
+	end
+end
 
-for id, spell in pairs(FS.Cooldowns.spells) do
+-------------------------------------------------------------------------------
+-- Build spells database
+-------------------------------------------------------------------------------
+
+local spells = {}
+local spell_class = {}
+local spell_data = {}
+
+for id, spell in FS.Cooldowns:IterateSpells() do
 	table.insert(spells, id)
-	spells_class[id] = spell.class or ""
+	spell_class[id] = spell.class or ""
 
 	local name, _, icon = GetSpellInfo(id)
 	local desc = GetSpellDescription(id)
-	spells_info[id] = { name, icon, desc }
+	spell_data[id] = { name, icon, desc }
 end
 
 table.sort(spells, function(a, b)
-	if spells_class[a] ~= spells_class[b] then
-		return spells_class[a] < spells_class[b]
+	if spell_class[a] ~= spell_class[b] then
+		return spell_class[a] < spell_class[b]
 	else
-		return spells_info[a][1] < spells_info[b][1]
+		return spell_data[a][1] < spell_data[b][1]
 	end
 end)
 
 Cooldowns2.spells = spells
-Cooldowns2.spells_class = spells_class
-Cooldowns2.spells_info = spells_info
+Cooldowns2.spell_class = spell_class
+Cooldowns2.spell_data = spell_data
