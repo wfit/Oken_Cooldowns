@@ -48,212 +48,234 @@ function Cooldowns2:BuildGroupSettings(name, group)
 				name = "",
 				type = "description"
 			},
-			settings_header = {
+			icons_settings = {
 				order = 3,
-				name = "Group settings",
-				type = "header"
+				name = "Icons settings",
+				type = "group",
+				inline = true,
+				args = {
+					size = {
+						order = 10,
+						name = "Icon size",
+						min = 16,
+						max = 64,
+						type = "range",
+						step = 1,
+						get = function() return group.size end,
+						set = function(_, value)
+							group.size = value
+							Cooldowns2:RebuildGroup(name)
+						end
+					},
+					border = {
+						order = 11,
+						name = "Border size",
+						min = 0,
+						max = 5,
+						type = "range",
+						step = 1,
+						get = function() return group.border end,
+						set = function(_, value)
+							group.border = value
+							Cooldowns2:RebuildGroup(name)
+						end
+					},
+				}
 			},
-			size = {
-				order = 10,
-				name = "Icon size",
-				min = 16,
-				max = 64,
-				type = "range",
-				step = 1,
-				get = function() return group.size end,
-				set = function(_, value)
-					group.size = value
-					Cooldowns2:RebuildGroup(name)
-				end
+			bars_settings = {
+				order = 4,
+				name = "Bars settings",
+				type = "group",
+				inline = true,
+				args = {
+					width = {
+						order = 12,
+						name = "Bar width",
+						min = 50,
+						max = 200,
+						type = "range",
+						step = 1,
+						get = function() return group.width end,
+						set = function(_, value)
+							group.width = value
+							Cooldowns2:RebuildGroup(name)
+						end
+					},
+					height = {
+						order = 13,
+						name = "Bar height",
+						min = 10,
+						max = 50,
+						type = "range",
+						step = 1,
+						get = function() return group.height end,
+						set = function(_, value)
+							group.height = value
+							Cooldowns2:RebuildGroup(name)
+						end
+					},
+					spacing = {
+						order = 14,
+						name = "Spacing",
+						min = 0,
+						max = 50,
+						type = "range",
+						step = 1,
+						get = function() return group.spacing end,
+						set = function(_, value)
+							group.spacing = value
+							Cooldowns2:RebuildGroup(name)
+						end
+					},
+					attach = {
+						order = 15,
+						name = "Attach - Grow",
+						type = "select",
+						values = {
+							LEFTDOWN = "Left - Down",
+							LEFTUP = "Left - Up",
+							RIGHTDOWN = "Right - Down",
+							RIGHTUP = "Right - Up",
+						},
+						get = function() return group.attach end,
+						set = function(_, value)
+							group.attach = value
+							Cooldowns2:RebuildGroup(name)
+						end
+					},
+					texture = {
+						order = 18,
+						name = "Texture",
+						type = "select",
+						width = "double",
+						dialogControl = "LSM30_Statusbar",
+						values = Media:HashTable("statusbar"),
+						get = function() return group.texture end,
+						set = function(_, value)
+							group.texture = value
+							Cooldowns2:RebuildGroup(name)
+						end
+					},
+				}
 			},
-			border = {
-				order = 11,
-				name = "Border size",
-				min = 0,
-				max = 5,
-				type = "range",
-				step = 1,
-				get = function() return group.border end,
-				set = function(_, value)
-					group.border = value
-					Cooldowns2:RebuildGroup(name)
-				end
+			fonts_settings = {
+				order = 5,
+				name = "Fonts settings",
+				type = "group",
+				inline = true,
+				args = {
+					font_size = {
+						order = 16,
+						name = "Font size",
+						min = 5,
+						max = 30,
+						type = "range",
+						step = 1,
+						get = function() return group.font_size end,
+						set = function(_, value)
+							group.font_size = value
+							Cooldowns2:RebuildGroup(name)
+						end
+					},
+					font = {
+						order = 17,
+						name = "Font",
+						type = "select",
+						dialogControl = "LSM30_Font",
+						values = Media:HashTable("font"),
+						get = function() return group.font end,
+						set = function(_, value)
+							group.font = value
+							Cooldowns2:RebuildGroup(name)
+						end
+					},
+				}
 			},
-			width = {
-				order = 12,
-				name = "Bar width",
-				min = 50,
-				max = 200,
-				type = "range",
-				step = 1,
-				get = function() return group.width end,
-				set = function(_, value)
-					group.width = value
-					Cooldowns2:RebuildGroup(name)
-				end
-			},
-			height = {
-				order = 13,
-				name = "Bar height",
-				min = 10,
-				max = 50,
-				type = "range",
-				step = 1,
-				get = function() return group.height end,
-				set = function(_, value)
-					group.height = value
-					Cooldowns2:RebuildGroup(name)
-				end
-			},
-			spacing = {
-				order = 14,
-				name = "Spacing",
-				min = 0,
-				max = 50,
-				type = "range",
-				step = 1,
-				get = function() return group.spacing end,
-				set = function(_, value)
-					group.spacing = value
-					Cooldowns2:RebuildGroup(name)
-				end
-			},
-			attach = {
-				order = 15,
-				name = "Attach - Grow",
-				type = "select",
-				values = {
-					LEFTDOWN = "Left - Down",
-					LEFTUP = "Left - Up",
-					RIGHTDOWN = "Right - Down",
-					RIGHTUP = "Right - Up",
-				},
-				get = function() return group.attach end,
-				set = function(_, value)
-					group.attach = value
-					Cooldowns2:RebuildGroup(name)
-				end
-			},
-			font_size = {
-				order = 16,
-				name = "Font size",
-				min = 5,
-				max = 30,
-				type = "range",
-				step = 1,
-				get = function() return group.font_size end,
-				set = function(_, value)
-					group.font_size = value
-					Cooldowns2:RebuildGroup(name)
-				end
-			},
-			font = {
-				order = 17,
-				name = "Font",
-				type = "select",
-				dialogControl = "LSM30_Font",
-				values = Media:HashTable("font"),
-				get = function() return group.font end,
-				set = function(_, value)
-					group.font = value
-					Cooldowns2:RebuildGroup(name)
-				end
-			},
-			texture = {
-				order = 18,
-				name = "Texture",
-				type = "select",
-				width = "double",
-				dialogControl = "LSM30_Statusbar",
-				values = Media:HashTable("statusbar"),
-				get = function() return group.texture end,
-				set = function(_, value)
-					group.texture = value
-					Cooldowns2:RebuildGroup(name)
-				end
-			},
-			void2 = {
-				order = 20,
-				name = "\n",
-				type = "description"
-			},
-			missing = {
-				order = 21,
-				name = "Display missing cooldowns",
-				type = "toggle",
-				width = "full",
-				get = function() return group.missing end,
-				set = function(_, value)
-					group.missing = value
-					Cooldowns2:RebuildGroup(name)
-				end
-			},
-			missingDesc = {
-				order = 22,
-				name = "Display cooldown icon even if nobody in the group can cast it\n",
-				type = "description"
-			},
-			charges = {
-				order = 23,
-				name = "Display charges",
-				type = "toggle",
-				width = "full",
-				get = function() return group.charges end,
-				set = function(_, value)
-					group.charges = value
-					Cooldowns2:RebuildGroup(name)
-				end
-			},
-			chargesDesc = {
-				order = 24,
-				name = "Display charges count next to the player's name if more than one charge of the cooldown is available\n",
-				type = "description"
-			},
-			limit = {
-				order = 25,
-				name = "Limit number of visible cooldowns",
-				type = "toggle",
-				width = "full",
-				get = function() return group.limit end,
-				set = function(_, value)
-					group.limit = value
-					Cooldowns2:RebuildGroup(name)
-				end
-			},
-			limit_nb = {
-				order = 26,
-				name = "Limit",
-				min = 1,
-				max = 10,
-				type = "range",
-				step = 1,
-				hidden = function() return not group.limit end,
-				get = function() return group.limit_nb end,
-				set = function(_, value)
-					group.limit_nb = value
-					Cooldowns2:RebuildGroup(name)
-				end
-			},
-			limitDesc = {
-				order = 27,
-				name = "Limit the number of visible cooldowns at any one time, for each spell\n",
-				type = "description"
-			},
-			excluseSelf = {
-				order = 28,
-				name = "Exclude self",
-				type = "toggle",
-				width = "full",
-				get = function() return group.exclude_self end,
-				set = function(_, value)
-					group.exclude_self = value
-					Cooldowns2:RebuildGroup(name)
-				end
-			},
-			excluseSelfDesc = {
-				order = 29,
-				name = "Do not display yourself in the list of available cooldowns\n",
-				type = "description"
+			group_behavior = {
+				order = 6,
+				name = "Group behavior",
+				type = "group",
+				inline = true,
+				args = {
+					missing = {
+						order = 21,
+						name = "Display missing cooldowns",
+						type = "toggle",
+						width = "full",
+						get = function() return group.missing end,
+						set = function(_, value)
+							group.missing = value
+							Cooldowns2:RebuildGroup(name)
+						end
+					},
+					missingDesc = {
+						order = 22,
+						name = "|cff999999Display cooldown icon even if nobody in the group can cast it\n",
+						type = "description"
+					},
+					charges = {
+						order = 23,
+						name = "Display charges",
+						type = "toggle",
+						width = "full",
+						get = function() return group.charges end,
+						set = function(_, value)
+							group.charges = value
+							Cooldowns2:RebuildGroup(name)
+						end
+					},
+					chargesDesc = {
+						order = 24,
+						name = "|cff999999Display charges count next to the player's name if more than one charge is available\n",
+						type = "description"
+					},
+					limit = {
+						order = 25,
+						name = "Limit number of visible cooldowns",
+						type = "toggle",
+						width = "full",
+						get = function() return group.limit end,
+						set = function(_, value)
+							group.limit = value
+							Cooldowns2:RebuildGroup(name)
+						end
+					},
+					limit_nb = {
+						order = 26,
+						name = "Limit",
+						min = 1,
+						max = 10,
+						type = "range",
+						step = 1,
+						hidden = function() return not group.limit end,
+						get = function() return group.limit_nb end,
+						set = function(_, value)
+							group.limit_nb = value
+							Cooldowns2:RebuildGroup(name)
+						end
+					},
+					limitDesc = {
+						order = 27,
+						name = "|cff999999Limit the number of visible cooldowns at any one time, for each spell\n",
+						type = "description"
+					},
+					excluseSelf = {
+						order = 28,
+						name = "Exclude self",
+						type = "toggle",
+						width = "full",
+						get = function() return group.exclude_self end,
+						set = function(_, value)
+							group.exclude_self = value
+							Cooldowns2:RebuildGroup(name)
+						end
+					},
+					excluseSelfDesc = {
+						order = 29,
+						name = "|cff999999Do not display yourself in the list of available cooldowns\n",
+						type = "description"
+					},
+				}
 			},
 			cooldowns = {
 				order = 100,

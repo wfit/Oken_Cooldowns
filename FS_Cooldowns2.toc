@@ -3,7 +3,7 @@
 ## Notes: Raid cooldowns tracker
 ## Author: Blash
 ## SavedVariables: FSCooldowns2
-## Dependencies: FS_Core
+## RequiredDeps: FS_Core
 ## OptionalDeps: FS_Cooldowns
 
 FS_Cooldowns2.lua
