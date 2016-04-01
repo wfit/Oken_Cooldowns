@@ -71,7 +71,7 @@ function Cooldowns2:InitializePlayerTracking()
 		end
 
 		if one_changed then
-			self:ScheduleIndexRefreshAll()
+			self:ScheduleIndexRefreshAll(true)
 		end
 	end)
 end

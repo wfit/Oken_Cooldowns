@@ -128,9 +128,9 @@ function Cooldowns2:RefreshIndex(spell)
 	})
 
 	table.sort(cds, function(a, b)
-		local ad_left, ad_elapsed, ad_total = a:Duration()
-		local bd_left, bd_elapsed, bd_total = b:Duration()
-		local a_active, b_active = ad_total == 0, bd_total == 0
+		local ad_left, ad_total, ad_elapsed = a:Duration()
+		local bd_left, bd_total, bd_elapsed = b:Duration()
+		local a_active, b_active = ad_total ~= 0, bd_total ~= 0
 
 		if a_active ~= b_active then
 			return a_active
