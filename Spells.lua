@@ -15,7 +15,8 @@ local class_colors = {
 	["MAGE"]        = {0.41, 0.80, 0.94, "69ccf0"},
 	["WARLOCK"]     = {0.58, 0.51, 0.79, "9482c9"},
 	["MONK"]        = {0.33, 0.54, 0.52, "00ff96"},
-	["DRUID"]       = {1.00, 0.49, 0.04, "ff7d0a"},
+	["DRUID"]       = {1.00, 0.49, 0.04, "ff7d0a" },
+	["DEMONHUNTER"] = {0.64, 0.19, 0.79, "a330c9" },
 	[""]            = {0.39, 0.70, 1.00, "64b4ff"},
 }
 
@@ -42,7 +43,7 @@ for id, spell in FS.Cooldowns:IterateSpells() do
 
 	local name, _, icon = GetSpellInfo(id)
 	local desc = GetSpellDescription(id)
-	spell_data[id] = { name, icon, desc }
+	spell_data[id] = { name, spell.icon or icon, desc }
 end
 
 table.sort(spells, function(a, b)
