@@ -14,9 +14,21 @@ function Cooldowns2:OnInitialize()
 end
 
 function Cooldowns2:OnEnable()
+	self:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 end
 
 function Cooldowns2:OnDisable()
+end
+
+do
+	local last_instance_type
+	function Cooldowns2:ZONE_CHANGED_NEW_AREA()
+		local _, instance_type = GetInstanceInfo()
+		if last_instance_type ~= instance_type then
+			last_instance_type = instance_type
+			self:RebuildAllGroups()
+		end
+	end
 end
 
 -------------------------------------------------------------------------------
