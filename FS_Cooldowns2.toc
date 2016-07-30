@@ -1,4 +1,4 @@
-## Interface: 60200
+## Interface: 70000
 ## Title: |cff64b4ffFrom Scratch|r Cooldowns2
 ## Notes: Raid cooldowns tracker
 ## Author: Blash
