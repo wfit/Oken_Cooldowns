@@ -13,7 +13,7 @@ function Cooldowns2:InitializeIndex()
 	self:RegisterMessage("FS_COOLDOWNS_LOST")
 
 	self:RegisterMessage("FS_COOLDOWNS_USED")
-	self:RegisterMessage("FS_COOLDOWNS_BEGIN")
+	self:RegisterMessage("FS_COOLDOWNS_START")
 	self:RegisterMessage("FS_COOLDOWNS_READY")
 	self:RegisterMessage("FS_COOLDOWNS_RESET")
 	self:RegisterMessage("FS_COOLDOWNS_UPDATE")
@@ -63,7 +63,7 @@ function Cooldowns2:FS_COOLDOWNS_USED(_, guid, spell, duration)
 	end
 end
 
-function Cooldowns2:FS_COOLDOWNS_BEGIN(_, guid, spell, cooldown)
+function Cooldowns2:FS_COOLDOWNS_START(_, guid, spell, cooldown)
 	self:ScheduleIndexRefresh(spell)
 end
 
