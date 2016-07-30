@@ -27,7 +27,11 @@ local defaults = {
 				limit_nb = 3,
 				exclude_self = false,
 				cooldowns = {},
-				unlocked = true
+				unlocked = true,
+				show_only_in = false,
+				show_only_in_party = false,
+				show_only_in_raid = false,
+				show_only_in_none = false
 			}
 		}
 	}

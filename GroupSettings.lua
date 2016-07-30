@@ -275,6 +275,38 @@ function Cooldowns2:BuildGroupSettings(name, group)
 						name = "|cff999999Do not display yourself in the list of available cooldowns\n",
 						type = "description"
 					},
+					showOnlyIn = {
+						order = 30,
+						name = "Limit visibility",
+						type = "toggle",
+						width = "full",
+						get = function() return group.show_only_in end,
+						set = function(_, value)
+							group.show_only_in = value
+							Cooldowns2:RebuildGroup(name)
+						end
+					},
+					showOnlyInSelect = {
+						order = 33,
+						name = "Show only in",
+						type = "multiselect",
+						values = {
+							party = "Dungeons",
+							raid = "Raids",
+							none = "Outside"
+						},
+						hidden = function() return not group.show_only_in end,
+						get = function(_, type) return group["show_only_in_" .. type] end,
+						set = function(_, type, value)
+							group["show_only_in_" .. type] = value
+							Cooldowns2:RebuildGroup(name)
+						end
+					},
+					showOnlyInDesc = {
+						order = 34,
+						name = "|cff999999Show this group only in some instance types\n",
+						type = "description"
+					},
 				}
 			},
 			cooldowns = {

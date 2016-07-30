@@ -64,6 +64,13 @@ function Group:Rebuild()
 
 	self:HideDisplays()
 
+	if settings.show_only_in and (not self.settings.unlocked) then
+		local _, instType = GetInstanceInfo()
+		if (not instType) or (not settings["show_only_in_" .. instType]) then
+			return
+		end
+	end
+
 	local last_display
 	for _, spell in ipairs(settings.cooldowns) do
 		local display = self:GetDisplay(spell)
