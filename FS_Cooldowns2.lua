@@ -6,15 +6,15 @@ LibStub("AceAddon-3.0"):NewAddon(Cooldowns2, "FSCooldowns2", "AceEvent-3.0", "Ac
 -------------------------------------------------------------------------------
 
 function Cooldowns2:OnInitialize()
-	self:InitializeSettings()
-	self:InitializeIndex()
-	self:InitializePlayerTracking()
-
-	self:RebuildEverything()
 end
 
 function Cooldowns2:OnEnable()
+	self:InitializeSettings()
+	self:InitializeIndex()
+	self:InitializePlayerTracking()
 	self:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+
+	self:RebuildEverything()
 end
 
 function Cooldowns2:OnDisable()
