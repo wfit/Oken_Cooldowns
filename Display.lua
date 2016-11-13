@@ -154,7 +154,7 @@ function Display:Rebuild()
 	self.frame:SetSize(self.width, self.height)
 
 	if self.active then
-		self:Refresh()
+		self:Refresh(true)
 	else
 		self:SetDesaturated(true)
 		self:SetGlow(false)
@@ -162,7 +162,7 @@ function Display:Rebuild()
 	end
 end
 
-function Display:Refresh()
+function Display:Refresh(didRebuild)
 	if not self.active then return end
 
 	local settings = self.settings
@@ -170,6 +170,9 @@ function Display:Refresh()
 
 	for idx, cd in self:IterateCooldowns() do
 		local bar = self.bars[idx]
+		if not bar and not didRebuild then
+			return self:Rebuild()
+		end
 		bar:SetCooldown(cd)
 		bar:Refresh()
 	end
