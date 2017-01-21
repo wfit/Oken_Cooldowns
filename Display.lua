@@ -205,7 +205,7 @@ function Display:IterateCooldowns()
 	for id, cd in Cooldowns2:IterateIndex(self.spell) do
 		if not settings.exclude_self or (cd.unit.guid ~= player_guid) then
 			cds[#cds + 1] = cd
-			if #cds >= settings.limit_nb then
+			if settings.limit and #cds >= settings.limit_nb then
 				break
 			end
 		end
