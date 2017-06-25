@@ -5,6 +5,7 @@
 ## SavedVariables: FSCooldowns2
 ## RequiredDeps: FS_Core
 ## OptionalDeps: FS_Cooldowns
+## X-FS-Addon: 1
 
 FS_Cooldowns2.lua
 Spells.lua
