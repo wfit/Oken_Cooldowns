@@ -1,5 +1,5 @@
 ## Interface: 70300
-## Title: |cff64b4ffFrom Scratch|r Cooldowns
+## Title: |cffe6494aWFI|r Cooldowns
 ## Notes: Raid cooldowns tracker
 ## Author: Blash
 ## SavedVariables: WFICooldowns
