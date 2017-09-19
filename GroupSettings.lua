@@ -1,17 +1,17 @@
-local _, Cooldowns2 = ...
+local _, Cooldowns = ...
 local Media = LibStub("LibSharedMedia-3.0")
 
 -------------------------------------------------------------------------------
 -- Management
 -------------------------------------------------------------------------------
 
-function Cooldowns2:CreateGroupSettings(name)
+function Cooldowns:CreateGroupSettings(name)
 	local settings = self:BuildGroupSettings(name, self.settings.groups[name])
 	self.config.args.groups.args[name] = settings
 	return settings
 end
 
-function Cooldowns2:RemoveGroupSettings(name)
+function Cooldowns:RemoveGroupSettings(name)
 	self.config.args.groups.args[name] = nil
 end
 
@@ -19,7 +19,7 @@ end
 -- Builder
 -------------------------------------------------------------------------------
 
-function Cooldowns2:BuildGroupSettings(name, group)
+function Cooldowns:BuildGroupSettings(name, group)
 	-- Create config entry
 	local settings = {
 		name = name,
@@ -32,7 +32,7 @@ function Cooldowns2:BuildGroupSettings(name, group)
 				get = function() return group.unlocked end,
 				set = function(_, value)
 					group.unlocked = value
-					Cooldowns2:RebuildGroup(name)
+					Cooldowns:RebuildGroup(name)
 				end
 			},
 			remove = {
@@ -40,7 +40,7 @@ function Cooldowns2:BuildGroupSettings(name, group)
 				name = "Delete group",
 				type = "execute",
 				func = function()
-					Cooldowns2:RemoveGroup(name)
+					Cooldowns:RemoveGroup(name)
 				end
 			},
 			void1 = {
@@ -64,7 +64,7 @@ function Cooldowns2:BuildGroupSettings(name, group)
 						get = function() return group.size end,
 						set = function(_, value)
 							group.size = value
-							Cooldowns2:RebuildGroup(name)
+							Cooldowns:RebuildGroup(name)
 						end
 					},
 					border = {
@@ -77,7 +77,7 @@ function Cooldowns2:BuildGroupSettings(name, group)
 						get = function() return group.border end,
 						set = function(_, value)
 							group.border = value
-							Cooldowns2:RebuildGroup(name)
+							Cooldowns:RebuildGroup(name)
 						end
 					},
 				}
@@ -98,7 +98,7 @@ function Cooldowns2:BuildGroupSettings(name, group)
 						get = function() return group.width end,
 						set = function(_, value)
 							group.width = value
-							Cooldowns2:RebuildGroup(name)
+							Cooldowns:RebuildGroup(name)
 						end
 					},
 					height = {
@@ -111,7 +111,7 @@ function Cooldowns2:BuildGroupSettings(name, group)
 						get = function() return group.height end,
 						set = function(_, value)
 							group.height = value
-							Cooldowns2:RebuildGroup(name)
+							Cooldowns:RebuildGroup(name)
 						end
 					},
 					spacing = {
@@ -124,7 +124,7 @@ function Cooldowns2:BuildGroupSettings(name, group)
 						get = function() return group.spacing end,
 						set = function(_, value)
 							group.spacing = value
-							Cooldowns2:RebuildGroup(name)
+							Cooldowns:RebuildGroup(name)
 						end
 					},
 					attach = {
@@ -140,7 +140,7 @@ function Cooldowns2:BuildGroupSettings(name, group)
 						get = function() return group.attach end,
 						set = function(_, value)
 							group.attach = value
-							Cooldowns2:RebuildGroup(name)
+							Cooldowns:RebuildGroup(name)
 						end
 					},
 					texture = {
@@ -153,7 +153,7 @@ function Cooldowns2:BuildGroupSettings(name, group)
 						get = function() return group.texture end,
 						set = function(_, value)
 							group.texture = value
-							Cooldowns2:RebuildGroup(name)
+							Cooldowns:RebuildGroup(name)
 						end
 					},
 				}
@@ -174,7 +174,7 @@ function Cooldowns2:BuildGroupSettings(name, group)
 						get = function() return group.font_size end,
 						set = function(_, value)
 							group.font_size = value
-							Cooldowns2:RebuildGroup(name)
+							Cooldowns:RebuildGroup(name)
 						end
 					},
 					font = {
@@ -186,7 +186,7 @@ function Cooldowns2:BuildGroupSettings(name, group)
 						get = function() return group.font end,
 						set = function(_, value)
 							group.font = value
-							Cooldowns2:RebuildGroup(name)
+							Cooldowns:RebuildGroup(name)
 						end
 					},
 				}
@@ -205,7 +205,7 @@ function Cooldowns2:BuildGroupSettings(name, group)
 						get = function() return group.missing end,
 						set = function(_, value)
 							group.missing = value
-							Cooldowns2:RebuildGroup(name)
+							Cooldowns:RebuildGroup(name)
 						end
 					},
 					missingDesc = {
@@ -221,7 +221,7 @@ function Cooldowns2:BuildGroupSettings(name, group)
 						get = function() return group.charges end,
 						set = function(_, value)
 							group.charges = value
-							Cooldowns2:RebuildGroup(name)
+							Cooldowns:RebuildGroup(name)
 						end
 					},
 					chargesDesc = {
@@ -237,7 +237,7 @@ function Cooldowns2:BuildGroupSettings(name, group)
 						get = function() return group.limit end,
 						set = function(_, value)
 							group.limit = value
-							Cooldowns2:RebuildGroup(name)
+							Cooldowns:RebuildGroup(name)
 						end
 					},
 					limit_nb = {
@@ -251,7 +251,7 @@ function Cooldowns2:BuildGroupSettings(name, group)
 						get = function() return group.limit_nb end,
 						set = function(_, value)
 							group.limit_nb = value
-							Cooldowns2:RebuildGroup(name)
+							Cooldowns:RebuildGroup(name)
 						end
 					},
 					limitDesc = {
@@ -267,7 +267,7 @@ function Cooldowns2:BuildGroupSettings(name, group)
 						get = function() return group.exclude_self end,
 						set = function(_, value)
 							group.exclude_self = value
-							Cooldowns2:RebuildGroup(name)
+							Cooldowns:RebuildGroup(name)
 						end
 					},
 					excluseSelfDesc = {
@@ -283,7 +283,7 @@ function Cooldowns2:BuildGroupSettings(name, group)
 						get = function() return group.show_only_in end,
 						set = function(_, value)
 							group.show_only_in = value
-							Cooldowns2:RebuildGroup(name)
+							Cooldowns:RebuildGroup(name)
 						end
 					},
 					showOnlyInSelect = {
@@ -299,7 +299,7 @@ function Cooldowns2:BuildGroupSettings(name, group)
 						get = function(_, type) return group["show_only_in_" .. type] end,
 						set = function(_, type, value)
 							group["show_only_in_" .. type] = value
-							Cooldowns2:RebuildGroup(name)
+							Cooldowns:RebuildGroup(name)
 						end
 					},
 					showOnlyInDesc = {
@@ -359,7 +359,7 @@ function Cooldowns2:BuildGroupSettings(name, group)
 				set = function()
 					table.remove(cooldowns_list, idx)
 					rebuild_active_cds()
-					Cooldowns2:RebuildGroup(name)
+					Cooldowns:RebuildGroup(name)
 				end,
 				order = idx * 10
 			}
@@ -372,7 +372,7 @@ function Cooldowns2:BuildGroupSettings(name, group)
 				func = function()
 					cooldowns_list[idx - 1], cooldowns_list[idx] = cooldowns_list[idx], cooldowns_list[idx - 1]
 					rebuild_active_cds()
-					Cooldowns2:RebuildGroup(name)
+					Cooldowns:RebuildGroup(name)
 				end,
 				order = idx * 10 + 2
 			}
@@ -401,7 +401,7 @@ function Cooldowns2:BuildGroupSettings(name, group)
 			set = function()
 				table.insert(cooldowns_list, id)
 				rebuild_active_cds()
-				Cooldowns2:RebuildGroup(name)
+				Cooldowns:RebuildGroup(name)
 			end,
 			order = idx
 		}

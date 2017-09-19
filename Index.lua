@@ -1,5 +1,5 @@
-local _, Cooldowns2 = ...
-local Roster = FS.Roster
+local _, Cooldowns = ...
+local Roster = WFI.Roster
 
 -------------------------------------------------------------------------------
 -- Cooldowns index
@@ -8,21 +8,21 @@ local Roster = FS.Roster
 -- It provides the correct ordering for iteration by displays
 -------------------------------------------------------------------------------
 
-function Cooldowns2:InitializeIndex()
-	self:RegisterMessage("FS_COOLDOWNS_GAINED")
-	self:RegisterMessage("FS_COOLDOWNS_LOST")
+function Cooldowns:InitializeIndex()
+	self:RegisterMessage("WFI_COOLDOWNS_GAINED")
+	self:RegisterMessage("WFI_COOLDOWNS_LOST")
 
-	self:RegisterMessage("FS_COOLDOWNS_USED")
-	self:RegisterMessage("FS_COOLDOWNS_START")
-	self:RegisterMessage("FS_COOLDOWNS_READY")
-	self:RegisterMessage("FS_COOLDOWNS_RESET")
-	self:RegisterMessage("FS_COOLDOWNS_UPDATE")
+	self:RegisterMessage("WFI_COOLDOWNS_USED")
+	self:RegisterMessage("WFI_COOLDOWNS_START")
+	self:RegisterMessage("WFI_COOLDOWNS_READY")
+	self:RegisterMessage("WFI_COOLDOWNS_RESET")
+	self:RegisterMessage("WFI_COOLDOWNS_UPDATE")
 
 	self.index = {}
 	self.refresh_scheduled = nil
 end
 
-function Cooldowns2:FS_COOLDOWNS_GAINED(_, guid, spell)
+function Cooldowns:WFI_COOLDOWNS_GAINED(_, guid, spell)
 	local cds = self.index[spell]
 
 	if not cds then
@@ -34,12 +34,12 @@ function Cooldowns2:FS_COOLDOWNS_GAINED(_, guid, spell)
 		self.player_available[guid] = true
 	end
 
-	local cd = FS.Cooldowns:GetCooldown(guid, spell)
+	local cd = WFI.Cooldowns:GetCooldown(guid, spell)
 	table.insert(cds, cd)
 	self:ScheduleIndexRefresh(spell, true)
 end
 
-function Cooldowns2:FS_COOLDOWNS_LOST(_, guid, spell)
+function Cooldowns:WFI_COOLDOWNS_LOST(_, guid, spell)
 	local cds = self.index[spell]
 	if not cds then return end
 
@@ -56,30 +56,30 @@ function Cooldowns2:FS_COOLDOWNS_LOST(_, guid, spell)
 	self:ScheduleIndexRefresh(spell, true)
 end
 
-function Cooldowns2:FS_COOLDOWNS_USED(_, guid, spell, duration)
+function Cooldowns:WFI_COOLDOWNS_USED(_, guid, spell, duration)
 	if duration > 0 then
 		self:ScheduleIndexRefresh(spell)
 		C_Timer.After(duration, function() self:ScheduleIndexRefresh(spell) end)
 	end
 end
 
-function Cooldowns2:FS_COOLDOWNS_START(_, guid, spell, cooldown)
+function Cooldowns:WFI_COOLDOWNS_START(_, guid, spell, cooldown)
 	self:ScheduleIndexRefresh(spell)
 end
 
-function Cooldowns2:FS_COOLDOWNS_READY(_, guid, spell)
+function Cooldowns:WFI_COOLDOWNS_READY(_, guid, spell)
 	self:ScheduleIndexRefresh(spell)
 end
 
-function Cooldowns2:FS_COOLDOWNS_UPDATE(_, guid, spell)
+function Cooldowns:WFI_COOLDOWNS_UPDATE(_, guid, spell)
 	self:ScheduleIndexRefresh(spell)
 end
 
-function Cooldowns2:FS_COOLDOWNS_RESET(_, guid, spell)
+function Cooldowns:WFI_COOLDOWNS_RESET(_, guid, spell)
 	self:ScheduleIndexRefresh(spell)
 end
 
-function Cooldowns2:ScheduleIndexRefresh(spell, rebuild)
+function Cooldowns:ScheduleIndexRefresh(spell, rebuild)
 	local value = rebuild and 2 or 1
 	if self.refresh_scheduled then
 		local prev_value = self.refresh_scheduled[spell]
@@ -109,13 +109,13 @@ function Cooldowns2:ScheduleIndexRefresh(spell, rebuild)
 	end
 end
 
-function Cooldowns2:ScheduleIndexRefreshAll(rebuild)
+function Cooldowns:ScheduleIndexRefreshAll(rebuild)
 	for spell in pairs(self.index) do
 		self:ScheduleIndexRefresh(spell, rebuild)
 	end
 end
 
-function Cooldowns2:RefreshIndex(spell)
+function Cooldowns:RefreshIndex(spell)
 	local cds = self.index[spell]
 	if not cds then return end
 
@@ -157,11 +157,11 @@ function Cooldowns2:RefreshIndex(spell)
 	end)
 end
 
-function Cooldowns2:IndexHasSpell(spell)
+function Cooldowns:IndexHasSpell(spell)
 	return self.index[spell] ~= nil
 end
 
-function Cooldowns2:IterateIndex(spell)
+function Cooldowns:IterateIndex(spell)
 	local cds = self.index[spell]
 	if not cds then return end
 	return ipairs(cds)

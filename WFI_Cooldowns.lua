@@ -1,14 +1,14 @@
-local _, Cooldowns2 = ...
-LibStub("AceAddon-3.0"):NewAddon(Cooldowns2, "FSCooldowns2", "AceEvent-3.0", "AceConsole-3.0")
+local _, Cooldowns = ...
+LibStub("AceAddon-3.0"):NewAddon(Cooldowns, "WFICooldowns", "AceEvent-3.0", "AceConsole-3.0")
 
 -------------------------------------------------------------------------------
 -- Life-cycle
 -------------------------------------------------------------------------------
 
-function Cooldowns2:OnInitialize()
+function Cooldowns:OnInitialize()
 end
 
-function Cooldowns2:OnEnable()
+function Cooldowns:OnEnable()
 	self:InitializeSettings()
 	self:InitializeIndex()
 	self:InitializePlayerTracking()
@@ -17,12 +17,12 @@ function Cooldowns2:OnEnable()
 	self:RebuildEverything()
 end
 
-function Cooldowns2:OnDisable()
+function Cooldowns:OnDisable()
 end
 
 do
 	local last_instance_type
-	function Cooldowns2:ZONE_CHANGED_NEW_AREA()
+	function Cooldowns:ZONE_CHANGED_NEW_AREA()
 		local _, instance_type = GetInstanceInfo()
 		if last_instance_type ~= instance_type then
 			last_instance_type = instance_type
@@ -35,23 +35,23 @@ end
 -- Helpers
 -------------------------------------------------------------------------------
 
-function Cooldowns2:RebuildGroup(name)
+function Cooldowns:RebuildGroup(name)
 	self.groups[name]:Rebuild()
 end
 
-function Cooldowns2:RebuildAllGroups()
+function Cooldowns:RebuildAllGroups()
 	for name, group in self:IterateGroups() do
 		group:Rebuild()
 	end
 end
 
-function Cooldowns2:RefreshDisplay(spell)
+function Cooldowns:RefreshDisplay(spell)
 	for name, group in self:IterateGroups() do
 		group:Refresh(spell)
 	end
 end
 
-function Cooldowns2:RefreshAllDisplays()
+function Cooldowns:RefreshAllDisplays()
 	for name, group in self:IterateGroups() do
 		group:RefreshAll()
 	end
@@ -61,9 +61,9 @@ end
 -- Players availablity
 -------------------------------------------------------------------------------
 
-local Roster = FS.Roster
+local Roster = WFI.Roster
 
-function Cooldowns2:InitializePlayerTracking()
+function Cooldowns:InitializePlayerTracking()
 	self.player_available = {}
 
 	C_Timer.NewTicker(2, function()
@@ -88,6 +88,6 @@ function Cooldowns2:InitializePlayerTracking()
 	end)
 end
 
-function Cooldowns2:IsPlayerAvailabe(guid)
+function Cooldowns:IsPlayerAvailabe(guid)
 	return self.player_available[guid] or false
 end

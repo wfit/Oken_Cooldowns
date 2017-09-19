@@ -1,8 +1,8 @@
-local _, Cooldowns2 = ...
+local _, Cooldowns = ...
 
 local Display = {}
 Display.__index = Display
-Cooldowns2.Display = Display
+Cooldowns.Display = Display
 
 local ICON_ATTACH = {
 	LEFTDOWN = "TOPLEFT",
@@ -40,7 +40,7 @@ function Display:BuildIcon()
 	icon.back = back
 
 	local tex = icon:CreateTexture(nil, "MEDIUM")
-	tex:SetTexture(Cooldowns2.spell_data[self.spell][2])
+	tex:SetTexture(Cooldowns.spell_data[self.spell][2])
 	tex:SetTexCoord(0.08, 0.92, 0.08, 0.92)
 	icon.tex = tex
 
@@ -70,7 +70,7 @@ function Display:SetDesaturated(desaturated)
 		self.icon.back:SetVertexColor(0.5, 0.5, 0.5, 1)
 	else
 		self.icon.tex:SetDesaturated()
-		local r, g, b = Cooldowns2:GetClassColor(Cooldowns2.spell_class[self.spell])
+		local r, g, b = Cooldowns:GetClassColor(Cooldowns.spell_class[self.spell])
 		self.icon.back:SetVertexColor(r, g, b, 1)
 	end
 end
@@ -113,7 +113,7 @@ function Display:Rebuild()
 		local bar = bars[idx]
 
 		if not bar then
-			bar = Cooldowns2.Bar:New(self)
+			bar = Cooldowns.Bar:New(self)
 			bars[idx] = bar
 		end
 
@@ -193,7 +193,7 @@ function Display:Refresh(didRebuild)
 end
 
 function Display:IterateCooldowns()
-	if not Cooldowns2:IndexHasSpell(self.spell) then
+	if not Cooldowns:IndexHasSpell(self.spell) then
 		return function() end
 	end
 
@@ -202,7 +202,7 @@ function Display:IterateCooldowns()
 
 	local cds = {}
 
-	for id, cd in Cooldowns2:IterateIndex(self.spell) do
+	for id, cd in Cooldowns:IterateIndex(self.spell) do
 		if not settings.exclude_self or (cd.unit.guid ~= player_guid) then
 			cds[#cds + 1] = cd
 			if settings.limit and #cds >= settings.limit_nb then

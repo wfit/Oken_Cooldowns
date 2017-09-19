@@ -1,0 +1,16 @@
+## Interface: 70300
+## Title: |cff64b4ffFrom Scratch|r Cooldowns
+## Notes: Raid cooldowns tracker
+## Author: Blash
+## SavedVariables: WFICooldowns
+## RequiredDeps: WFI_Core
+## X-WFI-Addon: 1
+
+WFI_Cooldowns.lua
+Spells.lua
+Index.lua
+Settings.lua
+GroupSettings.lua
+Group.lua
+Display.lua
+Bar.lua

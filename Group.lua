@@ -1,4 +1,4 @@
-local _, Cooldowns2 = ...
+local _, Cooldowns = ...
 
 -------------------------------------------------------------------------------
 -- Group instance
@@ -18,7 +18,7 @@ function Group:New(name)
 	local self = setmetatable({
 		name = name,
 		anchor = CreateFrame("Frame", nil, UIParent),
-		settings = Cooldowns2.settings.groups[name],
+		settings = Cooldowns.settings.groups[name],
 		displays = {}
 	}, Group)
 
@@ -98,7 +98,7 @@ end
 function Group:GetDisplay(spell)
 	local display = self.displays[spell]
 	if not display then
-		display = Cooldowns2.Display:New(self, spell)
+		display = Cooldowns.Display:New(self, spell)
 		self.displays[spell] = display
 	end
 	return display
@@ -130,22 +130,22 @@ end
 -- Groups management
 -------------------------------------------------------------------------------
 
-Cooldowns2.groups = {}
+Cooldowns.groups = {}
 
 -- Returns a display group by name
-function Cooldowns2:GetGroup(name)
+function Cooldowns:GetGroup(name)
 	return self.groups[name]
 end
 
 -- Creates a new display group with the given name
-function Cooldowns2:CreateGroup(name)
+function Cooldowns:CreateGroup(name)
 	if self.groups[name] then return end
 	self:CreateGroupSettings(name)
 	self.groups[name] = Group:New(name)
 end
 
 -- Remove the given display group
-function Cooldowns2:RemoveGroup(name)
+function Cooldowns:RemoveGroup(name)
 	self:RemoveGroupSettings(name)
 	self.settings.groups[name] = nil
 
@@ -154,12 +154,12 @@ function Cooldowns2:RemoveGroup(name)
 end
 
 -- Iterates over defined groups
-function Cooldowns2:IterateGroups()
+function Cooldowns:IterateGroups()
 	return pairs(self.groups)
 end
 
 -- Rebuild everything !
-function Cooldowns2:RebuildEverything()
+function Cooldowns:RebuildEverything()
 	for name, group in self:IterateGroups() do
 		group:Dispose()
 	end

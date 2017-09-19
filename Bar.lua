@@ -1,9 +1,9 @@
-local _, Cooldowns2 = ...
+local _, Cooldowns = ...
 local Media = LibStub("LibSharedMedia-3.0")
 
 local Bar = {}
 Bar.__index = Bar
-Cooldowns2.Bar = Bar
+Cooldowns.Bar = Bar
 
 function Bar:New(display)
 	local wrapper = CreateFrame("Frame", nil, display.frame)
@@ -106,14 +106,14 @@ function Bar:Refresh()
 
 	if active then
 		color_ratio = 2
-	elseif not Cooldowns2:IsPlayerAvailabe(cd.unit.guid) then
+	elseif not Cooldowns:IsPlayerAvailabe(cd.unit.guid) then
 		color_ratio = 0.2
 		wrapper:SetAlpha(0.4)
 	elseif not cd:IsReady() then
 		color_ratio = 0
 	end
 
-	local r, g, b = Cooldowns2:GetClassColor(Cooldowns2.spell_class[cd.spell.id])
+	local r, g, b = Cooldowns:GetClassColor(Cooldowns.spell_class[cd.spell.id])
 	local function blend(color) return color * color_ratio + 0.3 * (1 - color_ratio) end
 	bar:SetStatusBarColor(blend(r), blend(g), blend(b), 1)
 

@@ -1,4 +1,4 @@
-local _, Cooldowns2 = ...
+local _, Cooldowns = ...
 
 local AceAddon = LibStub("AceAddon-3.0")
 local LibDualSpec = LibStub("LibDualSpec-1.0")
@@ -41,7 +41,7 @@ local defaults = {
 -- Config dialog
 -------------------------------------------------------------------------------
 
-Cooldowns2.config = {
+Cooldowns.config = {
 	type = "group",
 	args = {
 		groups = {
@@ -50,7 +50,7 @@ Cooldowns2.config = {
 			args = {
 				["$title"] = {
 					type = "description",
-					name = "|cff64b4ffFSCooldowns2",
+					name = "|cff64b4ffWFICooldowns",
 					fontSize = "large",
 					order = 0
 				},
@@ -68,7 +68,7 @@ Cooldowns2.config = {
 					args = {
 						help = {
 							type = "description",
-							name = "Display groups are the building blocks of FSCD. Each of them can display a customized set of cooldowns with individual display settings.\n",
+							name = "Display groups are the building blocks of WFICD. Each of them can display a customized set of cooldowns with individual display settings.\n",
 							order = 1
 						},
 						help2 = {
@@ -81,7 +81,7 @@ Cooldowns2.config = {
 							name = "New group name",
 							width = "full",
 							get = function() return "" end,
-							set = function(_, name) Cooldowns2:CreateGroup(name) end,
+							set = function(_, name) Cooldowns:CreateGroup(name) end,
 							order = 50
 						}
 					}
@@ -91,26 +91,16 @@ Cooldowns2.config = {
 	}
 }
 
-LibStub("AceConfig-3.0"):RegisterOptionsTable("FSCooldowns2", Cooldowns2.config)
+LibStub("AceConfig-3.0"):RegisterOptionsTable("WFICooldowns", Cooldowns.config)
 
-function Cooldowns2:InitializeSettings()
-	local has_fsc1 = AceAddon:GetAddon("FSCooldowns", true)
-	local chat_cmd = has_fsc1 and "fsc2" or "fsc"
-
-	if has_fsc1 then
-		C_Timer.After(5, function()
-			self:Print("|cffffff00You seem to have both FSCooldowns and FSCooldowns2 enabled at the same time. " ..
-					"FSCooldowns2 config command will be bound to /fsc2 instead.")
-		end)
-	end
-
-	self:RegisterChatCommand(chat_cmd, function()
-		LibStub("AceConfigDialog-3.0"):Open("FSCooldowns2")
+function Cooldowns:InitializeSettings()
+	self:RegisterChatCommand("wfic", function()
+		LibStub("AceConfigDialog-3.0"):Open("WFICooldowns")
 	end)
 
-	self.db = LibStub("AceDB-3.0"):New("FSCooldowns2", defaults, true)
+	self.db = LibStub("AceDB-3.0"):New("WFICooldowns", defaults, true)
 	self.config.args.profiles = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db)
-	LibDualSpec:EnhanceDatabase(self.db, "FSCooldowns2")
+	LibDualSpec:EnhanceDatabase(self.db, "WFICooldowns")
 	LibDualSpec:EnhanceOptions(self.config.args.profiles, self.db)
 	self.settings = self.db.profile
 
@@ -119,7 +109,7 @@ function Cooldowns2:InitializeSettings()
 	self.db.RegisterCallback(self, "OnProfileReset", "RefreshConfig")
 end
 
-function Cooldowns2:RefreshConfig()
+function Cooldowns:RefreshConfig()
 	self.settings = self.db.profile
 	self:RebuildEverything()
 end

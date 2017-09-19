@@ -1,4 +1,4 @@
-local _, Cooldowns2 = ...
+local _, Cooldowns = ...
 
 -------------------------------------------------------------------------------
 -- Build spells database
@@ -20,7 +20,7 @@ local class_colors = {
 	[""]            = {0.39, 0.70, 1.00, "64b4ff"},
 }
 
-function Cooldowns2:GetClassColor(class, as_hex)
+function Cooldowns:GetClassColor(class, as_hex)
 	local colors = class and class_colors[class] or class_colors[""]
 	if as_hex then
 		return colors[4]
@@ -37,7 +37,7 @@ local spells = {}
 local spell_class = {}
 local spell_data = {}
 
-for id, spell in FS.Cooldowns:IterateSpells() do
+for id, spell in WFI.Cooldowns:IterateSpells() do
 	table.insert(spells, id)
 	spell_class[id] = spell.class or ""
 
@@ -54,6 +54,6 @@ table.sort(spells, function(a, b)
 	end
 end)
 
-Cooldowns2.spells = spells
-Cooldowns2.spell_class = spell_class
-Cooldowns2.spell_data = spell_data
+Cooldowns.spells = spells
+Cooldowns.spell_class = spell_class
+Cooldowns.spell_data = spell_data
