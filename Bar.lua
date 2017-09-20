@@ -115,7 +115,7 @@ function Bar:Refresh()
 
 	local r, g, b = Cooldowns:GetClassColor(Cooldowns.spell_class[cd.spell.id])
 	local function blend(color) return color * color_ratio + 0.3 * (1 - color_ratio) end
-	bar:SetStatusBarColor(blend(r), blend(g), blend(b), 1)
+	bar:SetStatusBarColor(blend(r), blend(g), blend(b), settings.opacity)
 
 	-- Animation
 	if active or cooling_down then

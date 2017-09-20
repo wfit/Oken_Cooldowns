@@ -127,8 +127,21 @@ function Cooldowns:BuildGroupSettings(name, group)
 							Cooldowns:RebuildGroup(name)
 						end
 					},
-					attach = {
+					opacity = {
 						order = 15,
+						name = "Opacity",
+						min = 0,
+						max = 1,
+						type = "range",
+						step = 0.01,
+						get = function() return group.opacity end,
+						set = function(_, value)
+							group.opacity = value
+							Cooldowns:RebuildGroup(name)
+						end
+					},
+					attach = {
+						order = 16,
 						name = "Attach - Grow",
 						type = "select",
 						values = {
@@ -147,7 +160,6 @@ function Cooldowns:BuildGroupSettings(name, group)
 						order = 18,
 						name = "Texture",
 						type = "select",
-						width = "double",
 						dialogControl = "LSM30_Statusbar",
 						values = Media:HashTable("statusbar"),
 						get = function() return group.texture end,

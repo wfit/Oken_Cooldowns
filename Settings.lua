@@ -15,6 +15,7 @@ local defaults = {
 				size = 24,
 				border = 1,
 				spacing = 2,
+				opacity = 1,
 				width = 100,
 				height = 15,
 				attach = "LEFTDOWN",
