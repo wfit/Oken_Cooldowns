@@ -1,5 +1,5 @@
 local _, Cooldowns = ...
-local Roster = WFI.Roster
+local Roster = Oken.Roster
 
 -------------------------------------------------------------------------------
 -- Cooldowns index
@@ -9,20 +9,20 @@ local Roster = WFI.Roster
 -------------------------------------------------------------------------------
 
 function Cooldowns:InitializeIndex()
-	self:RegisterMessage("WFI_COOLDOWNS_GAINED")
-	self:RegisterMessage("WFI_COOLDOWNS_LOST")
+	self:RegisterMessage("OKEN_COOLDOWNS_GAINED")
+	self:RegisterMessage("OKEN_COOLDOWNS_LOST")
 
-	self:RegisterMessage("WFI_COOLDOWNS_USED")
-	self:RegisterMessage("WFI_COOLDOWNS_START")
-	self:RegisterMessage("WFI_COOLDOWNS_READY")
-	self:RegisterMessage("WFI_COOLDOWNS_RESET")
-	self:RegisterMessage("WFI_COOLDOWNS_UPDATE")
+	self:RegisterMessage("OKEN_COOLDOWNS_USED")
+	self:RegisterMessage("OKEN_COOLDOWNS_START")
+	self:RegisterMessage("OKEN_COOLDOWNS_READY")
+	self:RegisterMessage("OKEN_COOLDOWNS_RESET")
+	self:RegisterMessage("OKEN_COOLDOWNS_UPDATE")
 
 	self.index = {}
 	self.refresh_scheduled = nil
 end
 
-function Cooldowns:WFI_COOLDOWNS_GAINED(_, guid, spell)
+function Cooldowns:OKEN_COOLDOWNS_GAINED(_, guid, spell)
 	local cds = self.index[spell]
 
 	if not cds then
@@ -34,12 +34,12 @@ function Cooldowns:WFI_COOLDOWNS_GAINED(_, guid, spell)
 		self.player_available[guid] = true
 	end
 
-	local cd = WFI.Cooldowns:GetCooldown(guid, spell)
+	local cd = Oken.Cooldowns:GetCooldown(guid, spell)
 	table.insert(cds, cd)
 	self:ScheduleIndexRefresh(spell, true)
 end
 
-function Cooldowns:WFI_COOLDOWNS_LOST(_, guid, spell)
+function Cooldowns:OKEN_COOLDOWNS_LOST(_, guid, spell)
 	local cds = self.index[spell]
 	if not cds then return end
 
@@ -56,26 +56,26 @@ function Cooldowns:WFI_COOLDOWNS_LOST(_, guid, spell)
 	self:ScheduleIndexRefresh(spell, true)
 end
 
-function Cooldowns:WFI_COOLDOWNS_USED(_, guid, spell, duration)
+function Cooldowns:OKEN_COOLDOWNS_USED(_, guid, spell, duration)
 	if duration > 0 then
 		self:ScheduleIndexRefresh(spell)
 		C_Timer.After(duration, function() self:ScheduleIndexRefresh(spell) end)
 	end
 end
 
-function Cooldowns:WFI_COOLDOWNS_START(_, guid, spell, cooldown)
+function Cooldowns:OKEN_COOLDOWNS_START(_, guid, spell, cooldown)
 	self:ScheduleIndexRefresh(spell)
 end
 
-function Cooldowns:WFI_COOLDOWNS_READY(_, guid, spell)
+function Cooldowns:OKEN_COOLDOWNS_READY(_, guid, spell)
 	self:ScheduleIndexRefresh(spell)
 end
 
-function Cooldowns:WFI_COOLDOWNS_UPDATE(_, guid, spell)
+function Cooldowns:OKEN_COOLDOWNS_UPDATE(_, guid, spell)
 	self:ScheduleIndexRefresh(spell)
 end
 
-function Cooldowns:WFI_COOLDOWNS_RESET(_, guid, spell)
+function Cooldowns:OKEN_COOLDOWNS_RESET(_, guid, spell)
 	self:ScheduleIndexRefresh(spell)
 end
 

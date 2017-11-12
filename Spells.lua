@@ -37,7 +37,7 @@ local spells = {}
 local spell_class = {}
 local spell_data = {}
 
-for id, spell in WFI.Cooldowns:IterateSpells() do
+for id, spell in Oken.Cooldowns:IterateSpells() do
 	table.insert(spells, id)
 	spell_class[id] = spell.class or ""
 

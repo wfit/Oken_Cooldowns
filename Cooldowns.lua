@@ -1,5 +1,5 @@
 local _, Cooldowns = ...
-LibStub("AceAddon-3.0"):NewAddon(Cooldowns, "WFICooldowns", "AceEvent-3.0", "AceConsole-3.0")
+LibStub("AceAddon-3.0"):NewAddon(Cooldowns, "OkenCooldowns", "AceEvent-3.0", "AceConsole-3.0")
 
 -------------------------------------------------------------------------------
 -- Life-cycle
@@ -61,7 +61,7 @@ end
 -- Players availablity
 -------------------------------------------------------------------------------
 
-local Roster = WFI.Roster
+local Roster = Oken.Roster
 
 function Cooldowns:InitializePlayerTracking()
 	self.player_available = {}

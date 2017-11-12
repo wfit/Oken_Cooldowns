@@ -1,12 +1,12 @@
 ## Interface: 70300
-## Title: |cffe6494aWFI|r Cooldowns
+## Title: |cffe6494aOken|r Cooldowns
 ## Notes: Raid cooldowns tracker
 ## Author: Blash
-## SavedVariables: WFICooldowns
-## RequiredDeps: WFI_Core
+## SavedVariables: OkenCooldowns
+## RequiredDeps: Oken_Core
 ## X-WFI-Addon: 1
 
-WFI_Cooldowns.lua
+Cooldowns.lua
 Spells.lua
 Index.lua
 Settings.lua

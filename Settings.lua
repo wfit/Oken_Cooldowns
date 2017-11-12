@@ -51,7 +51,7 @@ Cooldowns.config = {
 			args = {
 				["$title"] = {
 					type = "description",
-					name = "|cff64b4ffWFICooldowns",
+					name = "|cff64b4ffOkenCooldowns",
 					fontSize = "large",
 					order = 0
 				},
@@ -69,7 +69,7 @@ Cooldowns.config = {
 					args = {
 						help = {
 							type = "description",
-							name = "Display groups are the building blocks of WFICD. Each of them can display a customized set of cooldowns with individual display settings.\n",
+							name = "Display groups are the building blocks of OkenCD. Each of them can display a customized set of cooldowns with individual display settings.\n",
 							order = 1
 						},
 						help2 = {
@@ -92,16 +92,16 @@ Cooldowns.config = {
 	}
 }
 
-LibStub("AceConfig-3.0"):RegisterOptionsTable("WFICooldowns", Cooldowns.config)
+LibStub("AceConfig-3.0"):RegisterOptionsTable("OkenCooldowns", Cooldowns.config)
 
 function Cooldowns:InitializeSettings()
-	self:RegisterChatCommand("wfic", function()
-		LibStub("AceConfigDialog-3.0"):Open("WFICooldowns")
+	self:RegisterChatCommand("ocd", function()
+		LibStub("AceConfigDialog-3.0"):Open("OkenCooldowns")
 	end)
 
-	self.db = LibStub("AceDB-3.0"):New("WFICooldowns", defaults, true)
+	self.db = LibStub("AceDB-3.0"):New("OkenCooldowns", defaults, true)
 	self.config.args.profiles = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db)
-	LibDualSpec:EnhanceDatabase(self.db, "WFICooldowns")
+	LibDualSpec:EnhanceDatabase(self.db, "OkenCooldowns")
 	LibDualSpec:EnhanceOptions(self.config.args.profiles, self.db)
 	self.settings = self.db.profile
 
